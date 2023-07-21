@@ -123,7 +123,7 @@ class AttentionBasedGenerator(nn.Module):
         model_ckpt: Optional[str] = None,
         stable_diffusion_version: str = "1.5",
         lora_weights: Optional[str] = None,
-        torch_dtype=torch.float16
+        torch_dtype=torch.float32
     ):
         super().__init__()
 
@@ -148,19 +148,19 @@ class AttentionBasedGenerator(nn.Module):
                 scheduler=scheduler,
                 torch_dtype=torch_dtype,
                 safety_checker=None,
+                width=256,
+                height=256,
             )
             pipe.scheduler = scheduler
-            pipe.enable_vae_tiling()
-            pipe.enable_xformers_memory_efficient_attention()
         else:
             pipe = StableDiffusionPipeline.from_pretrained(
                 model_name,
                 scheduler=scheduler,
                 torch_dtype=torch_dtype,
                 safety_checker=None,
+                width=256,
+                height=256,
             )
-            pipe.enable_vae_tiling()
-            pipe.enable_xformers_memory_efficient_attention()
 
         if lora_weights:
             print(f"Applying LoRA weights from {lora_weights}")
