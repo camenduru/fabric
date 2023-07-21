@@ -150,6 +150,8 @@ class AttentionBasedGenerator(nn.Module):
                 safety_checker=None,
             )
             pipe.scheduler = scheduler
+            pipe.enable_vae_tiling()
+            pipe.enable_xformers_memory_efficient_attention()
         else:
             pipe = StableDiffusionPipeline.from_pretrained(
                 model_name,
@@ -157,6 +159,8 @@ class AttentionBasedGenerator(nn.Module):
                 torch_dtype=torch_dtype,
                 safety_checker=None,
             )
+            pipe.enable_vae_tiling()
+            pipe.enable_xformers_memory_efficient_attention()
 
         if lora_weights:
             print(f"Applying LoRA weights from {lora_weights}")
