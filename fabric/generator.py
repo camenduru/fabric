@@ -148,8 +148,6 @@ class AttentionBasedGenerator(nn.Module):
                 scheduler=scheduler,
                 torch_dtype=torch_dtype,
                 safety_checker=None,
-                width=256,
-                height=256,
             )
             pipe.scheduler = scheduler
         else:
@@ -158,8 +156,6 @@ class AttentionBasedGenerator(nn.Module):
                 scheduler=scheduler,
                 torch_dtype=torch_dtype,
                 safety_checker=None,
-                width=256,
-                height=256,
             )
 
         if lora_weights:
